@@ -12,17 +12,17 @@ var controller = Botkit.slackbot({
 );
 
 
-controller.setupWebserver(process.env.port,function(err,webserver) {
-  controller.createWebhookEndpoints(controller.webserver);
-
-  controller.createOauthEndpoints(controller.webserver,function(err,req,res) {
-    if (err) {
-      res.status(500).send('ERROR: ' + err);
-    } else {
-      res.send('Success!');
-    }
-  });
-});
+// controller.setupWebserver(process.env.port,function(err,webserver) {
+//   controller.createWebhookEndpoints(controller.webserver);
+//
+//   controller.createOauthEndpoints(controller.webserver,function(err,req,res) {
+//     if (err) {
+//       res.status(500).send('ERROR: ' + err);
+//     } else {
+//       res.send('Success!');
+//     }
+//   });
+// });
 
 
 // just a simple way to make sure we don't
