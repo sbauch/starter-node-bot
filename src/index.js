@@ -1,8 +1,18 @@
 var Botkit = require('botkit');
 var _      = require('underscore');
 
+var slackToken = process.env.SLACK_TOKEN
+if (!slackToken) {
+  console.error('SLACK_TOKEN is required!')
+  process.exit(1)
+}
+
 var controller = Botkit.slackbot({
   json_file_store: './src/db_slackbutton_bot/',
+})
+
+var bot = controller.spawn({
+  token: slackToken
 })
 
 
@@ -12,47 +22,6 @@ var _bots = {};
 function trackBot(bot) {
   _bots[bot.config.token] = bot;
 }
-
-controller.on('create_bot',function(bot,config) {
-  console.log(bot.config)
-
-  var swears = ["first"]
-  var teamConfig = _.extend(bot.config, {swears: swears})
-
-  controller.storage.teams.save(teamConfig, function(err){
-    if (err)
-      console.log(err)
-    else{
-
-    }
-  })
-
-
-
-  if (_bots[bot.config.token]) {
-
-    // already online! do nothing.
-  } else {
-
-    bot.startRTM(function(err) {
-
-      if (!err) {
-        trackBot(bot);
-      }
-
-      bot.startPrivateConversation({user: config.createdBy},function(err,convo) {
-        if (err) {
-          console.log(err);
-        } else {
-          convo.say('I am a bot that has just joined your team');
-          convo.say('You must now /invite me to a channel so that I can be of use!');
-        }
-      });
-
-    });
-  }
-
-});
 
 controller.storage.teams.all(function(err,teams) {
 
@@ -83,7 +52,7 @@ controller.storage.teams.all(function(err,teams) {
 })
 
 // function listenToSwears(swears){
-  controller.hears("ugh",['ambient'],function(bot,message) {
-    bot.reply(message,'Watch your mouth!');
-  });
+controller.hears("ugh",['ambient'],function(bot,message) {
+  bot.reply(message,'Watch your mouth!');
+});
 // }
