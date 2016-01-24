@@ -82,8 +82,8 @@ controller.storage.teams.all(function(err,teams) {
   }
 })
 
-function listenToSwears(swears){
-  controller.hears(swears,['ambient'],function(bot,message) {
+// function listenToSwears(swears){
+  controller.hears("ugh",['ambient'],function(bot,message) {
     bot.reply(message,'Watch your mouth!');
   });
-}
+// }
