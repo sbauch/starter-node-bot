@@ -3,25 +3,7 @@ var _      = require('underscore');
 
 var controller = Botkit.slackbot({
   json_file_store: './src/db_slackbutton_bot/',
-}).configureSlackApp(
-  {
-    clientId: "17516636083.19256994213",
-    clientSecret: "f81fb8ca19fe68561be02b2138da5a15",
-    scopes: ['bot']
-  }
-);
-
-controller.setupWebserver(process.env.port,function(err,webserver) {
-  controller.createWebhookEndpoints(controller.webserver);
-
-  controller.createOauthEndpoints(controller.webserver,function(err,req,res) {
-    if (err) {
-      res.status(500).send('ERROR: ' + err);
-    } else {
-      res.send('Success!');
-    }
-  });
-});
+})
 
 
 // just a simple way to make sure we don't
