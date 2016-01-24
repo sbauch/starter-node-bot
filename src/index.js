@@ -51,6 +51,12 @@ controller.storage.teams.all(function(err,teams) {
   }
 })
 
+
+bot.startRTM(function (err, bot, payload) {
+  if (err) {
+    throw new Error('Could not connect to Slack')
+  }
+})
 // function listenToSwears(swears){
 controller.hears("ugh",['ambient'],function(bot,message) {
   bot.reply(message,'Watch your mouth!');
